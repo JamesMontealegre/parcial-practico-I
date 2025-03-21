@@ -2,7 +2,9 @@ import time
 
 class RouteNode:
     # TODO Definir el nodo
-    pass
+     def __init__(self, location):
+        self.location = location
+        self.next = None
 
 class Route:
     def __init__(self):
@@ -10,7 +12,14 @@ class Route:
 
     def add_location(self, location):
         # TODO Implementar este método
-        pass
+        new_node = RouteNode(location)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
 
     def show_route(self):
         current = self.head
@@ -58,6 +67,12 @@ if __name__ == "__main__":
     city_route = Route()
     
     # Agregar rutas de manera iterativa dependiento de si su último número del código es par o impar
+
+   print("📍 Ruta con ubicaciones en índices impares:\n")
+    
+    for i in range(len(locations)):
+        if i % 2 != 0:  # DETECTAMOS Si el índice es impar
+            city_route.add_location(locations[i])
 
     city_route.show_route()
 

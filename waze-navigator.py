@@ -1,16 +1,23 @@
 import time
 
 class RouteNode:
-    # TODO Definir el nodo
-    pass
+    def __init__(self, location):
+        self.location = location
+        self.next = None
 
 class Route:
     def __init__(self):
         self.head = None
 
     def add_location(self, location):
-        # TODO Implementar este método
-        pass
+        new_node = RouteNode(location)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
 
     def show_route(self):
         current = self.head
@@ -40,7 +47,6 @@ class Route:
 
         show_next_step(current)
 
-        
 locations = [
     "Avenida Central",
     "Calle 5",
@@ -57,8 +63,19 @@ locations = [
 if __name__ == "__main__":
     city_route = Route()
     
-    # Agregar rutas de manera iterativa dependiento de si su último número del código es par o impar
-
+    last_digit = 8  # Último dígito de mi código
+    
+    if last_digit % 2 == 0:
+        print("🔴 Ruta con ubicaciones en índices pares:")
+        for i, location in enumerate(locations):
+            if (i + 1) % 2 == 0:
+                city_route.add_location(location)
+    else:
+        print("🔵 Ruta con ubicaciones en índices impares:")
+        for i, location in enumerate(locations):
+            if (i + 1) % 2 != 0:
+                city_route.add_location(location)
+    
     city_route.show_route()
 
     print("\n🔄 Simulación del recorrido en la ruta:\n")

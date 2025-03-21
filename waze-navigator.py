@@ -1,16 +1,30 @@
 import time
 
 class RouteNode:
-    # TODO Definir el nodo
-    pass
+    def __init__(self, location):
+        self.location = location
+        self.next = None
 
 class Route:
     def __init__(self):
         self.head = None
 
     def add_location(self, location):
-        # TODO Implementar este método
-        pass
+        current = self.head
+        while current:
+            if current.location == location:
+                print(f"⚠️ Ubicación ya existe en la ruta: {location}")
+                return
+            current = current.next  
+
+        new_node = RouteNode(location)
+        if not self.head:  
+            self.head = new_node
+        else:  
+            current = self.head
+            while current.next is not None:
+                current = current.next
+            current.next = new_node  
 
     def show_route(self):
         current = self.head
@@ -57,7 +71,14 @@ locations = [
 if __name__ == "__main__":
     city_route = Route()
     
-    # Agregar rutas de manera iterativa dependiento de si su último número del código es par o impar
+    codigo = 2  #codigo para probrar
+    ultimo_digito = int(str(codigo)[-1])  
+    es_par = (ultimo_digito % 2 == 0)  
+
+
+    for i, location in enumerate(locations):
+        if (es_par and i % 2 == 0) or (not es_par and i % 2 != 0):
+            city_route.add_location(location)  # Usar el método add_location para agregar la ubicación
 
     city_route.show_route()
 
